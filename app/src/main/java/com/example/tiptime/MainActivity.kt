@@ -88,11 +88,9 @@ fun TipTimeLayout() {
         )
         EditNumberField(
             value = amountInput,
-            onValueChange = { amountInput = it },
-            modifier = Modifier
-                .padding(bottom = 32.dp)
-                .fillMaxWidth()
+            onValueChange = { amountInput = it }
         )
+        Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.tip_amount, tip),
             style = MaterialTheme.typography.displaySmall
@@ -110,20 +108,19 @@ fun EditNumberField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        singleLine = true,
-        label = { Text(stringResource(R.string.bill_amount)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true,
         modifier = modifier
+            .fillMaxWidth()
     )
 }
 
 /**
- * Calculates the tip based on the user input and format the tip amount
+ * Calculates the tip based on the user input and formats the tip amount
  * according to the local currency.
- * Example would be "$10.00".
  */
-private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
-    val tip = tipPercent / 100 * amount
+fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
+    val tip = amount * (tipPercent / 100)
     return NumberFormat.getCurrencyInstance().format(tip)
 }
 
@@ -134,4 +131,3 @@ fun TipTimeLayoutPreview() {
         TipTimeLayout()
     }
 }
-
